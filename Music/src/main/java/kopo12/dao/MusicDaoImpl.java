@@ -30,7 +30,9 @@ public class MusicDaoImpl implements MusicDao {
 		// TODO Auto-generated method stub
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:00");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		String hour = sdf.format(cal.getTime());
+		String time = sdf1.format(cal.getTime());
 		Statement stmt = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.16:3306/kopoctc", "root", "kopoctc");
@@ -38,20 +40,20 @@ public class MusicDaoImpl implements MusicDao {
 			for (int i = 0; i < List.size(); i++) {
 				stmt = conn.createStatement();
 				if (i >= 100 && i < 200) {
-					stmt.execute("insert into MusicTB values(" + (i-99) + ",\"Bugs\", now(), \"" + hour + "\", \"" + List.get(i).get(3)
+					stmt.execute("insert into MusicTB values(" + (i-99) + ",\"Bugs\", \"" + time + "\", \"" + hour + "\", \"" + List.get(i).get(3)
 							+ "\", \"" + List.get(i).get(4) + "\");");
 
 				} else if (i < 100) {
-					stmt.execute("insert into MusicTB values(" + (i+1) + ",\"Melon\", now(), \"" + hour + "\", \"" + List.get(i).get(0)
+					stmt.execute("insert into MusicTB values(" + (i+1) + ",\"Melon\", \"" + time + "\", \"" + hour + "\", \"" + List.get(i).get(0)
 							+ "\", \"" + List.get(i).get(1) + "\");");
 				} else {
 					if(List.get(i).size() == 4) {
 						String singer = List.get(i).get(3).substring(0,List.get(i).get(3).indexOf("|"));
-						stmt.execute("insert into MusicTB values(" + (i-199) + ",\"Genie\", now(), \"" + hour + "\", \"" + List.get(i).get(2)
+						stmt.execute("insert into MusicTB values(" + (i-199) + ",\"Genie\", \"" + time + "\", \"" + hour + "\", \"" + List.get(i).get(2)
 								+ "\", \"" + singer + "\");");
 	                  }else {
 	                	String singer = List.get(i).get(4).substring(0,List.get(i).get(4).indexOf("|"));
-	                	stmt.execute("insert into MusicTB values(" + (i-199) + ",\"Genie\", now(), \"" + hour + "\", \"" + List.get(i).get(3)
+	                	stmt.execute("insert into MusicTB values(" + (i-199) + ",\"Genie\", \"" + time + "\", \"" + hour + "\", \"" + List.get(i).get(3)
 	  							+ "\", \"" + singer + "\");");
 	                  }
 				}
@@ -63,7 +65,7 @@ public class MusicDaoImpl implements MusicDao {
 	}
 
 	@Override
-	public Music selectOne(int id) throws SQLException, ClassNotFoundException {
+	public Music selectOne(String time, String site, String hour, String keyWord) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

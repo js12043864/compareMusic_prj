@@ -29,7 +29,7 @@ public class MusicServiceImpl implements MusicService {
 	}
 
 	@Override
-	public Music selectOne(int id) throws SQLException, ClassNotFoundException {
+	public Music selectOne(String time, String site, String hour, String keyWord) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

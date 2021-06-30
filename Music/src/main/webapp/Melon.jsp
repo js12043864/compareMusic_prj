@@ -27,11 +27,11 @@
 		background-color: white;
 	}
 	.melon{
-		float:left;
+		
 		display: inline-block;
 	}
 	.Bugs{
-		float:left;
+		
 		display: inline-block;
 	}
 	.Genie{
@@ -148,7 +148,7 @@
 	site = "Melon";
 	ArrayList<String> hourList = musicService.hourList(time, site);
 	%>
-	<form method="get" action="showMusic.jsp">
+	<form method="get" action="Melon.jsp">
 		<div class="Time">
 			<center>	
 				<span id=time><%= time %>&nbsp;&nbsp;</span>
@@ -168,8 +168,9 @@
 			</center>
 		</div>
 	</form>
+	<center>
 	<div class=search>
-		<form method="post" id="move" action="Search.jsp?hour=<%= hour %>">
+		<form method="post" id="move" action="SearchMelon.jsp?hour=<%= hour %>">
 			<input type="text" id="searchBox" name="keyWord" placeholder="제목이나 가수를 입력하세요.">
 			<button id="search"><i class="fas fa-search"></i></button>
 		</form>
@@ -197,52 +198,7 @@
 				%>
 			</table>
 		</div>
-		<div class="Bugs">
-			<table id="Bugs">
-				<tr>
-					<td colspan="3" class=first><img alt="벅스의 로고." src="//upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Bugs%21_logo.jpg/250px-Bugs%21_logo.jpg" decoding="async" width="142" height="99"width="142" height="99" srcset="//upload.wikimedia.org/wikipedia/commons/e/ef/Bugs%21_logo.jpg 1.5x" data-file-width="288" data-file-height="216"></td>
-				</tr>
-				<tr>
-					<td class="rank"><b>RANK</b></td>
-					<td><b>TITLE</b></td>
-					<td><b>SINGER</b></td>
-				</tr>
-				<%
-				site = "Bugs";
-				musicList = musicService.selectAll(time, site, hour);
-				for(Music music :  musicList){
-					out.print("<tr>" +
-								"<td class=\"rank\">" + music.getRanking() + "</td>" +
-								"<td>" + music.getMusTitle() + "</td>" +
-								"<td>" + music.getSinger() + "</td>" +
-							"</tr>");
-				}
-				%>
-			</table>
-		</div>
-		<div class="Genie">
-			<table id="Genie">
-				<tr>
-					<td colspan="3" class=first><img id="wp_thbn_58" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAA2CAMAAADK4/ZxAAAATlBMVEX///8hqtgApdYAo9Xj8vgUqNdZud8AodTx+Pzs9vv5/P5mveCDyOXb7vej1evT6vXL5vO03O50wuOSzuia0elDsty/4fGr2O0yrtoAndKRYM4zAAAEYUlEQVRYhe1Y2XbrKgw1IrIxduJ5OP//oxckEJDh9PSuruSlemhtw2Zrlp2q+pWfEGM/w7vXn+FdmvkjvDXCJ4jtiQr69/O2WqlPEO+gPkK8oKNF3b27mmpH23SXN7NWlbO1vr6dtbr82cb3s1bVOH2C9X/Idbqtx/Bq1bZtmaCtE+P+m2Hcxy/i+QBOcpzgRZ/ipl50sPt8opNtNekoQN8O245goG6lUimfzRTAxxPqdgNfdb7woKMnk2rCPtuj4+A1OCLi6roDTIPAdJcdt4CKrDMEsAJ8iPwlwmndNfWr02PjtREhrSkd29DheQ9MuNSgJkcRtNjzg7FZ7qwVrekc2OfGXfNMOZpoatA6OLSPBwp107Kep8a4a214RwQ3e8G7RUfMfQd04f+QV3bNyPk4ZgZrjvHJ6uh67mvINGpJT025cSMwqH46Os1K5rQ3xunVUqSD/trn6IWRPYX6gpnB3Pw7snGiGyRHj7zglRuAj6X9fAOZwVaxHeGRUcEn/qYmy2NY6HwO3dUrhHG814l3pamwiUskE1fIEaKtHM5Iho5k7iZbfbjwTCrE5xRsdkSHUYUjaUneIprs1WsjGiX3Vy3akx2QeglKjDwTSM0yL7VlJblBV9qU4GSDyYLDfueYTj5HaKkWSbw+C9KZnVBYgmjXNQZWvyvBiZfXIc0Qww+uwVNcXixK/KwLn5FppA9HBqow/jMw3yUMh1e38qAV6JwVvQhFzMcCJSPIL0hH3jBe1k/BKa9uKfFZ+P1ok8jrUqjpeGX1WCBYDVKVLrnA78HHa95eoD6IeLaXUkzYA+KihbtcjDtfclHcg9NsCH6W+WG5O+zCWz2RuljgtPcncE5S0LCookcJeZVqAuSUWhXHW0MSdEuh4saD3hTuSpLxuN2Bs1FoeasKjyadypnLUmY6TejG3/q0Aplq1EyZIusVXFuRyCKBUzTDhpCO1aqzfOd8qfN9PO0orSQyvI0W5tS4bkVf3LBwqpcxjApcjj7OWk5OGzQabGV2zk/2unNE5v8lja8tDSNDHQQ65592UphbUBjsZ6yr7jASeUgsYcJ5ISSwkVtxCKUVjS/DirI35zi4IY5fU/LGCUTwXklGVlwMWdWHWFt/vQqejfGH8pQKnjDZywilzMMnRHtG98JEvsUz5EObYRE21qaldxzpGjRo8rSKrX4o3p7qO2uDQ/27JPSGKyE50c4aqL2C3tj311r7LY10jb3xy5TDbrNLWkn0tmsCuKnLN5wkw75TOnCSJCe6l9hlnud+CjxreN9Kc3NcvJD5++QlM8xMfQ7OFsZhGMbsbZ083rz8mltiRP7Sif5FzB+qZ9Gnf5bwSQYd8++V3/5VONsjEXer5uXXSpyMz7v2d4S7BtIXq+n1Fz4MFYf4ELBvS5jPGk5swqmvN8+U7fppTXxTbOwa8u8vPxHYDhp8WRPfE7PlH0CxObzc/YO/Pq4gH3x4+3r7z4l136iOe+t/xoO/8isfkP8AZMkqpWlCaGIAAAAASUVORK5CYII=" class="rISBZc M4dUYb" width="142" height="99" alt="" data-atf="1"></td>
-				</tr>
-				<tr>
-					<td class="rank"><b>RANK</b></td>
-					<td><b>TITLE</b></td>
-					<td><b>SINGER</b></td>
-				</tr>
-				<%
-				site = "Genie";
-				musicList = musicService.selectAll(time, site, hour);
-				for(Music music :  musicList){
-					out.print("<tr>" +
-								"<td class=\"rank\">" + music.getRanking() + "</td>" +
-								"<td>" + music.getMusTitle() + "</td>" +
-								"<td>" + music.getSinger() + "</td>" +
-							"</tr>");
-				}
-				%>
-			</table>
-		</div>
 	</div>
+	</center>
 </body>
 </html>

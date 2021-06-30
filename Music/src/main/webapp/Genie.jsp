@@ -27,11 +27,11 @@
 		background-color: white;
 	}
 	.melon{
-		float:left;
+		
 		display: inline-block;
 	}
 	.Bugs{
-		float:left;
+		
 		display: inline-block;
 	}
 	.Genie{
@@ -148,7 +148,7 @@
 	site = "Melon";
 	ArrayList<String> hourList = musicService.hourList(time, site);
 	%>
-	<form method="get" action="showMusic.jsp">
+	<form method="get" action="Genie.jsp">
 		<div class="Time">
 			<center>	
 				<span id=time><%= time %>&nbsp;&nbsp;</span>
@@ -168,58 +168,14 @@
 			</center>
 		</div>
 	</form>
+	<center>
 	<div class=search>
-		<form method="post" id="move" action="Search.jsp?hour=<%= hour %>">
+		<form method="post" id="move" action="SearchGenie.jsp?hour=<%= hour %>">
 			<input type="text" id="searchBox" name="keyWord" placeholder="제목이나 가수를 입력하세요.">
 			<button id="search"><i class="fas fa-search"></i></button>
 		</form>
 	</div>
 	<div>
-		<div class="melon">
-			<table id="melon">
-				<tr>
-					<td colspan="3" class=first><img width="142" height="99" src="https://cdnimg.melon.co.kr/resource/image/web/common/logo_melon142x99.png" alt="MelOn 로고 이미지"></td>
-				</tr>
-				<tr>
-					<td class="rank"><b>RANK</b></td>
-					<td><b>TITLE</b></td>
-					<td><b>SINGER</b></td>
-				</tr>
-				<%
-				List<Music> musicList = musicService.selectAll(time, site, hour);
-				for(Music music :  musicList){
-					out.print("<tr>" +
-								"<td class=\"rank\">" + music.getRanking() + "</td>" +
-								"<td>" + music.getMusTitle() + "</td>" +
-								"<td>" + music.getSinger() + "</td>" +
-							"</tr>");
-				}
-				%>
-			</table>
-		</div>
-		<div class="Bugs">
-			<table id="Bugs">
-				<tr>
-					<td colspan="3" class=first><img alt="벅스의 로고." src="//upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Bugs%21_logo.jpg/250px-Bugs%21_logo.jpg" decoding="async" width="142" height="99"width="142" height="99" srcset="//upload.wikimedia.org/wikipedia/commons/e/ef/Bugs%21_logo.jpg 1.5x" data-file-width="288" data-file-height="216"></td>
-				</tr>
-				<tr>
-					<td class="rank"><b>RANK</b></td>
-					<td><b>TITLE</b></td>
-					<td><b>SINGER</b></td>
-				</tr>
-				<%
-				site = "Bugs";
-				musicList = musicService.selectAll(time, site, hour);
-				for(Music music :  musicList){
-					out.print("<tr>" +
-								"<td class=\"rank\">" + music.getRanking() + "</td>" +
-								"<td>" + music.getMusTitle() + "</td>" +
-								"<td>" + music.getSinger() + "</td>" +
-							"</tr>");
-				}
-				%>
-			</table>
-		</div>
 		<div class="Genie">
 			<table id="Genie">
 				<tr>
@@ -232,7 +188,7 @@
 				</tr>
 				<%
 				site = "Genie";
-				musicList = musicService.selectAll(time, site, hour);
+				List<Music> musicList = musicService.selectAll(time, site, hour);
 				for(Music music :  musicList){
 					out.print("<tr>" +
 								"<td class=\"rank\">" + music.getRanking() + "</td>" +
@@ -244,5 +200,6 @@
 			</table>
 		</div>
 	</div>
+	</center>
 </body>
 </html>

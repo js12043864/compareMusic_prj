@@ -72,7 +72,6 @@
     text-decoration: none;
     color : white;
 	}
-	
 	.Time {
 		margin-bottom: 40px;
 		font-size: 2em;
@@ -86,24 +85,12 @@
 		padding-bottom: 5px;
 		padding-top: 5px;
 		font-size: 20px;
-		border: 1px solid #1A1A1A;
 	}
 	#submit {
-		background-color: #5F5F5F;
-    	
-    	border-radius: 4px;
-    	color: white;
-    	font-family: Apple SD Gothic Neo,arial,sans-serif;
-    	font-size: 20px;
-    	margin: 11px 4px;
-    	padding: 0 16px;
-    	line-height: 30px;
-    	height: 36px;
-    	text-align: center;
-		
 		width: 80px;
 		height: 45px;
-		
+		padding-bottom: 5px;
+		padding-top: 5px;
 	}
 	.search {
 		margin-bottom: 15px;
@@ -111,24 +98,27 @@
 	}
 	#searchBox{
 		width: 200px;
-		height: 34px;
-		border: 1px solid #1A1A1A;
-		padding-top: 6px;
-		font-size: 14px;
+		height: 40px;
 	}
 	#search{
-		width: 60px;
+		width: 100px;
 		height: 45px;
+		
 		background-color: #5F5F5F;
     	
     	border-radius: 4px;
     	color: white;
     	font-family: Apple SD Gothic Neo,arial,sans-serif;
-    	font-size: 20px;
+    	font-size: 14px;
     	margin: 11px 4px;
-    	padding: 0 8px;
-    	line-height: 30px;
+    	padding: 0 16px;
+    	line-height: 27px;
+    	height: 36px;
+    	font: bold;
+    	
     	text-align: center;
+    	cursor: pointer;
+    	user-select: none;
 	}
 	.first {
 		background-color: white;
@@ -139,41 +129,29 @@
 <body>
 	<div id=title><a href="MusicWeb.jsp" id="tit"><i class="fas fa-headphones-alt"></i>쏭나와</a></div>
 	<%
+	request.setCharacterEncoding("utf-8");
 	Calendar cal = Calendar.getInstance();
 	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 	String hour = request.getParameter("hour");
 	String time = sdf1.format(cal.getTime());
+	String keyword = request.getParameter("keyWord");
 	String site = "";
 	MusicService musicService = MusicServiceImpl.getInstance();
 	site = "Melon";
 	ArrayList<String> hourList = musicService.hourList(time, site);
 	%>
-	<form method="get" action="showMusic.jsp">
 		<div class="Time">
 			<center>	
 				<span id=time><%= time %>&nbsp;&nbsp;</span>
-				<select name="hour" id=hour>
-				<%
-				Collections.sort(hourList);
-				for(int i = 0; i < hourList.size(); i++) {
-					if(hourList.get(hourList.size()-1-i).equals(hour)){
-						out.print("<option selected>" + hourList.get(hourList.size()-1-i) + "</option>");
-					}else{
-						out.print("<option>" + hourList.get(hourList.size()-1-i) + "</option>");
-					}
-				}
-				%>
-				</select>
-				<input type="submit" id=submit value="이동">
+				<span id=time><%= hour %></span>
 			</center>
 		</div>
-	</form>
-	<div class=search>
-		<form method="post" id="move" action="Search.jsp?hour=<%= hour %>">
-			<input type="text" id="searchBox" name="keyWord" placeholder="제목이나 가수를 입력하세요.">
-			<button id="search"><i class="fas fa-search"></i></button>
+		<div class=search>
+		<form method="post" id="move" action="showMusic.jsp?hour=<%= hour %>">
+			<input type="submit" id="search" value="뒤로가기">
 		</form>
 	</div>
+	<center><span id=key style="margin-bottom: 5px;"><b>"<%= keyword %>" 검색결과</b></span></center>
 	<div>
 		<div class="melon">
 			<table id="melon">
@@ -188,11 +166,13 @@
 				<%
 				List<Music> musicList = musicService.selectAll(time, site, hour);
 				for(Music music :  musicList){
+					if(music.getSinger().contains(keyword) || music.getMusTitle().contains(keyword)){
 					out.print("<tr>" +
 								"<td class=\"rank\">" + music.getRanking() + "</td>" +
 								"<td>" + music.getMusTitle() + "</td>" +
 								"<td>" + music.getSinger() + "</td>" +
 							"</tr>");
+					}
 				}
 				%>
 			</table>
@@ -211,11 +191,13 @@
 				site = "Bugs";
 				musicList = musicService.selectAll(time, site, hour);
 				for(Music music :  musicList){
-					out.print("<tr>" +
-								"<td class=\"rank\">" + music.getRanking() + "</td>" +
-								"<td>" + music.getMusTitle() + "</td>" +
-								"<td>" + music.getSinger() + "</td>" +
-							"</tr>");
+					if(music.getSinger().contains(keyword) || music.getMusTitle().contains(keyword)){
+						out.print("<tr>" +
+									"<td class=\"rank\">" + music.getRanking() + "</td>" +
+									"<td>" + music.getMusTitle() + "</td>" +
+									"<td>" + music.getSinger() + "</td>" +
+								"</tr>");
+						}
 				}
 				%>
 			</table>
@@ -234,11 +216,13 @@
 				site = "Genie";
 				musicList = musicService.selectAll(time, site, hour);
 				for(Music music :  musicList){
-					out.print("<tr>" +
-								"<td class=\"rank\">" + music.getRanking() + "</td>" +
-								"<td>" + music.getMusTitle() + "</td>" +
-								"<td>" + music.getSinger() + "</td>" +
-							"</tr>");
+					if(music.getSinger().contains(keyword) || music.getMusTitle().contains(keyword)){
+						out.print("<tr>" +
+									"<td class=\"rank\">" + music.getRanking() + "</td>" +
+									"<td>" + music.getMusTitle() + "</td>" +
+									"<td>" + music.getSinger() + "</td>" +
+								"</tr>");
+						}
 				}
 				%>
 			</table>

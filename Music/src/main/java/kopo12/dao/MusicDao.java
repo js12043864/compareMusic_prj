@@ -7,7 +7,7 @@ import kopo12.domain.Music;
 
 public interface MusicDao {
 	void create(List<List<String>> List) throws SQLException, ClassNotFoundException;
-	Music selectOne(int id) throws SQLException, ClassNotFoundException;	
+	Music selectOne(String time, String site, String hour, String keyWord) throws SQLException, ClassNotFoundException;	
 	void update();
 	void delete(Music music);
 	List<Music> selectAll(String time, String site) throws SQLException, ClassNotFoundException;
