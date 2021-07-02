@@ -35,7 +35,7 @@ public class MusicDaoImpl implements MusicDao {
 		String time = sdf1.format(cal.getTime());
 		Statement stmt = null;
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.16:3306/kopoctc", "root", "kopoctc");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.103:3306/kopoctc", "root", "kopoctc");
 		try {
 			for (int i = 0; i < List.size(); i++) {
 				stmt = conn.createStatement();
@@ -74,7 +74,7 @@ public class MusicDaoImpl implements MusicDao {
 	public List<Music> selectAll(String time, String site) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.16:3306/kopoctc", "root", "kopoctc");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.23.103:3306/kopoctc", "root", "kopoctc");
 		Statement stmt = conn.createStatement();
 		ResultSet rset = stmt.executeQuery("select * from MusicTB where musSite = \"" + site + "\" and date = \"" + time + "\";");
 		List<Music> showMusic = new ArrayList<Music>();
